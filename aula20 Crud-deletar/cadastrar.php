@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -6,6 +9,7 @@
     </head>
     <body>
         <h1>Cadastrar usuário</h1>
+        <a href="index.php">Listar</a><br><br>
         <?php
         require './Conn.php';
 
@@ -14,7 +18,7 @@
         if (!empty($Dados['SendCadUser'])):
             unset($Dados['SendCadUser']);
             $conn = new Conn();
-            
+
             $result_cadastrar = "INSERT INTO usuarios (nome, email, usuario, senha, created) VALUES (:nome, :email, :usuario, :senha, NOW())";
             $cadastrar = $conn->getConn()->prepare($result_cadastrar);
 
@@ -26,7 +30,8 @@
             $cadastrar->execute();
 
             if ($cadastrar->rowCount()):
-                echo "Cadastrado com sucesso";
+                $_SESSION['msg'] = "<p style='color:green;'>Registro cadastro com sucesso</p>";
+                header("Location: index.php");
             endif;
         endif;
         ?>        
