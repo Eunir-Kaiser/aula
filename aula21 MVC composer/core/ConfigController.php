@@ -28,5 +28,11 @@ class ConfigController {
             $this->UrlMetodo = 'index';
         endif;
     }
+    
+    public function carregar() {
+        $classe = "\\Sts\\Controllers\\".$this->UrlControlle;
+        $classeCarregar = new $classe;
+        $classeCarregar->index();
+    }
 
 }
